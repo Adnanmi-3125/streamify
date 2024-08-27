@@ -1,50 +1,56 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Streamify Analytics Dashboard
 
-Currently, two official plugins are available:
+![Streamify Preview](./src/assets/images/streamify-preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Introduction](#introduction)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Development Server](#development-server)
+  - [Building for Production](#building-for-production)
+- [Testing](#testing)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Introduction
 
-- Configure the top-level `parserOptions` property like this:
+Streamify is a comprehensive analytics dashboard designed to provide insightful views on user metrics and content performance. It offers detailed data visualizations that help users track growth, revenue, and streaming metrics effortlessly.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Features
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **User Growth Metrics:** Track growth and engagement with total and active user metrics over time.
+- **Revenue Distribution:** Detailed view of revenue streams from subscriptions and ads.
+- **Top Streamed Songs:** Insights into the most streamed songs over a specific period.
+- **Responsive Design:** A seamless experience across all devices.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Folder Structure
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```plaintext
+src/
+├── assets              # Static assets like images and fonts
+├── components          # Reusable components
+│   ├── charts          # Chart-specific components
+│   ├── table           # Table-specific components
+│   ├── ui              # General UI components
+│   │   ├── Charts.tsx         # Reusable chart components
+│   │   ├── KeyMetrics.tsx     # Key Metrics card component
+│   │   ├── MetricCard.tsx     # Metric Card component
+│   │   ├── Toggle.tsx         # Toggle switch component
+├── dashboard           # Dashboard-related components
+├── data                # Data files and mock data
+├── hooks               # Custom hooks
+├── lib                 # Utility functions and libraries
+├── theme               # Theming and styles
+├── App.tsx             # Root component of the app
+├── index.css           # Global styles
+├── main.tsx            # Entry point of the application
+├── vite-env.d.ts       # TypeScript environment declaration for Vite
 ```
