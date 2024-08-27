@@ -2,7 +2,7 @@
 
 # Streamify Analytics Dashboard
 
-![Streamify Preview](./src/assets/images/streamify-preview.png)
+![Streamify Preview](./src/assets/streamify-preview.png)
 
 ## Table of Contents
 
