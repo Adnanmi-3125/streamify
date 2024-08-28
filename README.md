@@ -66,3 +66,62 @@ src/
 ├── main.tsx            # Entry point of the application
 ├── vite-env.d.ts       # TypeScript environment declaration for Vite
 ```
+
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+_Installing and setting up your app._
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/Adnanmi-3125/streamify.git
+
+   ```
+
+2. Change into the project directory
+
+   ```sh
+   cd streamify
+   ```
+
+3. Install NPM packages
+
+   ```sh
+   npm install
+   ```
+
+4. Change git remote URL to avoid accidental pushes to the base project
+
+   ```sh
+   git remote set-url origin Adnanmi-3125/streamify.git
+   git remote -v # confirm the changes
+
+   ```
+
+### Running the Project
+
+1.  Start the development server
+    ```sh
+    npm run dev
+    ```
+
+### Running Tests
+
+1.  Execute the test script
+    ```sh
+    npm test
+    ```
