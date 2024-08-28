@@ -12,13 +12,6 @@
   - [Installation](#installation)
   - [Running the Project](#running-the-project)
   - [Running Tests](#running-tests)
-- [Usage](#usage)
-  - [Development Server](#development-server)
-  - [Building for Production](#building-for-production)
-- [Testing](#testing)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -67,7 +60,7 @@ src/
 ├── vite-env.d.ts       # TypeScript environment declaration for Vite
 ```
 
-## Getting Started
+## Setup
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
