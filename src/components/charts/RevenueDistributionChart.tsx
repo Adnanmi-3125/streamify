@@ -36,11 +36,11 @@ const chartConfig: {
   },
 } satisfies ChartConfig;
 
-export function RevenueDistributionChart({
+const RevenueDistributionChart = ({
   data,
 }: {
   data: RevenueDistributionData[];
-}) {
+}) => {
   return (
     <Card className="flex flex-col">
       <CardHeader className=" pb-0">
@@ -81,4 +81,6 @@ export function RevenueDistributionChart({
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default RevenueDistributionChart;

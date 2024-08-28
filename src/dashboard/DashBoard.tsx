@@ -1,15 +1,16 @@
 import KeyMetrics from "../components/KeyMetrics";
 import Charts from "../components/Charts";
-import useFetchData from "../hooks/useFetchData";
 import { DatePicker } from "../components/ui/datePicker";
 import { Subnav } from "../components/ui/subnav";
 import { SubnavItem } from "../components/ui/subnavItem";
 import TableIndex from "../components/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/Toggle";
+import { useAnalyticsContext } from "@/context/AnalyticsDataContext";
 
 const DashBoard: React.FC = () => {
-  const { metrics, userGrowth, revenueDistribution, topSongs } = useFetchData();
+  const { metrics, userGrowth, revenueDistribution, topSongs, loading } =
+    useAnalyticsContext();
 
   return (
     <div className="container mx-auto p-4">
@@ -32,12 +33,13 @@ const DashBoard: React.FC = () => {
       <div className="mt-4 flex items-center pb-6">
         <DatePicker />
       </div>
-      <KeyMetrics metrics={metrics} />
+      <KeyMetrics metrics={metrics} loading={loading} />
 
       <Charts
         userGrowth={userGrowth}
         revenueDistribution={revenueDistribution}
         topSongs={topSongs}
+        loading={loading}
       />
       <TableIndex />
     </div>

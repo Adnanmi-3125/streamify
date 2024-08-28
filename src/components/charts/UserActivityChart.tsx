@@ -1,6 +1,5 @@
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { UserGrowthData } from "@/data/data";
 
 const chartConfig = {
   desktop: {
@@ -27,7 +27,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function UserActivityChart({ data }: any) {
+const UserActivityChar = ({ data }: { data: UserGrowthData[] }) => {
   return (
     <Card>
       <CardHeader>
@@ -117,4 +117,6 @@ export function UserActivityChart({ data }: any) {
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default UserActivityChar;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -10,7 +11,6 @@ import {
   FilterFn,
   TableOptions,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -20,17 +20,17 @@ import {
   TableRow,
 } from "../ui/table";
 import { Button } from "../ui/button";
-import { useState } from "react";
 import { Input } from "../ui/input";
 import { Card } from "../ui/card";
 import { Stream } from "@/data/data";
+import withSkeletonLoading from "@/components/hoc/withSkeletonLoading";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -38,9 +38,7 @@ export function DataTable<TData, TValue>({
   const [globalFilter, setGlobalFilter] = useState("");
 
   const customFilterFn: FilterFn<Stream> = (row, _, filterValue) => {
-    // Trim the filter value to exclude all empty characters
     const trimmedFilterValue = String(filterValue).trim().toLowerCase();
-
     const filterColumns = ["songName", "artist"];
     return filterColumns.some((id) => {
       const value = row.getValue(id);
@@ -99,7 +97,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -149,3 +147,24 @@ export function DataTable<TData, TValue>({
     </Card>
   );
 }
+
+const skeletonLayout = [
+  { width: "w-full", height: "h-8 mb-2", className: "p-4" },
+];
+
+const DataTableWithSkeletonLoading =
+  withSkeletonLoading<DataTableProps<Stream, unknown>>(DataTable);
+
+export default ({
+  loading,
+  ...props
+}: { loading: boolean } & DataTableProps<Stream, unknown>) => (
+  <DataTableWithSkeletonLoading
+    loading={loading}
+    skeletonLayout={skeletonLayout}
+    skeletonCount={5}
+    wrapperClass="rounded-md border p-4"
+    {...props}
+    headerClassName="w-64 h-8 mb-4 mt-6"
+  />
+);

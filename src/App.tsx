@@ -1,10 +1,13 @@
+import { AnalyticsDataProvider } from "./context/AnalyticsDataContext";
+import { ThemeProvider } from "./context/ThemeProvider";
 import DashBoard from "./dashboard/DashBoard";
-import { ThemeProvider } from "./theme/theme-provider";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <DashBoard />
+      <AnalyticsDataProvider>
+        <DashBoard />
+      </AnalyticsDataProvider>
     </ThemeProvider>
   );
 };

@@ -24,7 +24,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function TopStreamedSongsBarChart({ data }: { data: TopSongData[] }) {
+const TopStreamedSongsBarChart = ({ data }: { data: TopSongData[] }) => {
   return (
     <Card>
       <CardHeader>
@@ -60,4 +60,6 @@ export function TopStreamedSongsBarChart({ data }: { data: TopSongData[] }) {
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default TopStreamedSongsBarChart;
