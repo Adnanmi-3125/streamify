@@ -1,4 +1,9 @@
-import data from '../data/data';
+import metrics from "@/data/metrics";
+import revenueDistribution from "@/data/revenueDistribution";
+import streams from "@/data/streams";
+import topSongs from "@/data/topSongs";
+import userGrowth from "@/data/userGrowth";
+
 
 const simulateNetworkLatency = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -6,25 +11,25 @@ const simulateNetworkLatency = (ms: number) => {
 
 export const fetchMetrics = async () => {
   await simulateNetworkLatency(500);
-  return data.metrics;
+  return metrics;
 };
 
 export const fetchUserGrowth = async () => {
   await simulateNetworkLatency(500);
-  return data.userGrowth;
+  return userGrowth;
 };
 
 export const fetchRevenueDistribution = async () => {
   await simulateNetworkLatency(500);
-  return data.revenueDistribution;
+  return revenueDistribution;
 };
 
 export const fetchTopSongs = async () => {
   await simulateNetworkLatency(500);
-  return data.topSongs;
+  return topSongs;
 };
 
 export const fetchStreams = async () => {
   await simulateNetworkLatency(500);
-  return data.streams;
+  return streams;
 };

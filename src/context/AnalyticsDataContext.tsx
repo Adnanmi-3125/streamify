@@ -12,14 +12,15 @@ import {
   RevenueDistributionData,
   TopSongData,
   Stream,
-} from "../data/data";
+} from "@/@types";
 import {
   fetchMetrics,
   fetchUserGrowth,
   fetchRevenueDistribution,
   fetchTopSongs,
   fetchStreams,
-} from "../utils/fakeApi";
+} from "../utils/apiMocks";
+import { useToast } from "@/components/ui/use-toast";
 
 interface AnalyticsDataContextType {
   metrics: Metric[];
@@ -28,7 +29,6 @@ interface AnalyticsDataContextType {
   topSongs: TopSongData[];
   streams: Stream[];
   loading: boolean;
-  error: string | null;
 }
 
 const AnalyticsDataContext = createContext<
@@ -37,6 +37,7 @@ const AnalyticsDataContext = createContext<
 
 export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
   React.memo(({ children }) => {
+    const { toast } = useToast();
     const [metrics, setMetrics] = useState<Metric[]>([]);
     const [userGrowth, setUserGrowth] = useState<UserGrowthData[]>([]);
     const [revenueDistribution, setRevenueDistribution] = useState<
@@ -45,7 +46,6 @@ export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
     const [topSongs, setTopSongs] = useState<TopSongData[]>([]);
     const [streams, setStreams] = useState<Stream[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -71,7 +71,10 @@ export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
           setTopSongs(topSongsData);
           setStreams(streamsData);
         } catch (error) {
-          setError("Failed to fetch data");
+          toast({
+            variant: "destructive",
+            description: "Failed to fetch data",
+          });
         } finally {
           setLoading(false);
         }
@@ -80,6 +83,7 @@ export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
       fetchData();
     }, []);
 
+    // useMemo is used in AnalyticsDataProvider to prevent unnecessary re-renders
     const contextValue = useMemo(
       () => ({
         metrics,
@@ -88,17 +92,8 @@ export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
         topSongs,
         streams,
         loading,
-        error,
       }),
-      [
-        metrics,
-        userGrowth,
-        revenueDistribution,
-        topSongs,
-        streams,
-        loading,
-        error,
-      ]
+      [metrics, userGrowth, revenueDistribution, topSongs, streams, loading]
     );
 
     return (

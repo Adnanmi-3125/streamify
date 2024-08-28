@@ -1,22 +1,9 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WithSkeletonLoadingProps } from "@/@types";
 
-interface SkeletonLayout {
-  width: string;
-  height: string;
-  className?: string;
-}
-
-interface WithSkeletonLoadingProps {
-  loading: boolean;
-  skeletonLayout: SkeletonLayout[];
-  skeletonCount: number;
-  wrapperClass: string;
-  headerClassName?: string;
-}
-
-const withSkeletonLoading = <P extends object>(
-  WrappedComponent: React.ComponentType<P>
+const withSkeletonLoading = <ComponentProps extends object>(
+  WrappedComponent: React.ComponentType<ComponentProps>
 ) => {
   return ({
     loading,
@@ -25,7 +12,7 @@ const withSkeletonLoading = <P extends object>(
     wrapperClass,
     headerClassName,
     ...props
-  }: WithSkeletonLoadingProps & P) => {
+  }: WithSkeletonLoadingProps & ComponentProps) => {
     if (loading) {
       return (
         <div className={wrapperClass}>
@@ -49,7 +36,7 @@ const withSkeletonLoading = <P extends object>(
         </div>
       );
     }
-    return <WrappedComponent {...(props as P)} />;
+    return <WrappedComponent {...(props as ComponentProps)} />;
   };
 };
 

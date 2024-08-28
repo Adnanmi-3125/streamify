@@ -14,7 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { UserGrowthData } from "@/data/data";
+import { UserGrowthData } from "@/@types";
 
 const chartConfig = {
   desktop: {

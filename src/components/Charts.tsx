@@ -1,10 +1,6 @@
 import { FC, lazy, Suspense } from "react";
 import withSkeletonLoading from "@/components/hoc/withSkeletonLoading";
-import {
-  RevenueDistributionData,
-  TopSongData,
-  UserGrowthData,
-} from "@/data/data";
+import { RevenueDistributionData, TopSongData, UserGrowthData } from "@/@types";
 
 const UserActivityChart = lazy(() => import("./charts/UserActivityChart"));
 const TopStreamedSongsBarChart = lazy(

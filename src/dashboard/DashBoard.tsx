@@ -1,8 +1,8 @@
 import KeyMetrics from "../components/KeyMetrics";
 import Charts from "../components/Charts";
-import { DatePicker } from "../components/ui/datePicker";
-import { Subnav } from "../components/ui/subnav";
-import { SubnavItem } from "../components/ui/subnavItem";
+import { DatePicker } from "../components/ui/date-picker";
+import { SubNav } from "../components/ui/sub-nav";
+import { SubNavItem } from "../components/ui/sub-nav-item";
 import TableIndex from "../components/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/Toggle";
@@ -24,12 +24,12 @@ const DashBoard: React.FC = () => {
           </Avatar>
         </div>
       </header>
-      <Subnav>
-        <SubnavItem className="active">Overview</SubnavItem>
-        <SubnavItem>Analytics</SubnavItem>
-        <SubnavItem>Reports</SubnavItem>
-        <SubnavItem>Notifications</SubnavItem>
-      </Subnav>
+      <SubNav>
+        <SubNavItem className="active">Overview</SubNavItem>
+        <SubNavItem>Analytics</SubNavItem>
+        <SubNavItem>Reports</SubNavItem>
+        <SubNavItem>Notifications</SubNavItem>
+      </SubNav>
       <div className="mt-4 flex items-center pb-6">
         <DatePicker />
       </div>

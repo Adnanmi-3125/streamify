@@ -22,7 +22,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Card } from "../ui/card";
-import { Stream } from "@/data/data";
+import { Stream } from "@/@types";
 import withSkeletonLoading from "@/components/hoc/withSkeletonLoading";
 
 interface DataTableProps<TData, TValue> {

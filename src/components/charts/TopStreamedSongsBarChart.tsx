@@ -15,7 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { TopSongData } from "@/data/data";
+import { TopSongData } from "@/@types";
 
 const chartConfig = {
   desktop: {

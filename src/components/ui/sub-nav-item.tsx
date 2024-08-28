@@ -1,11 +1,11 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface SubnavItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SubNavItemProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
 }
 
-const SubnavItem: React.FC<SubnavItemProps> = ({
+const SubNavItem: React.FC<SubNavItemProps> = ({
   className,
   active,
   ...props
@@ -25,4 +25,4 @@ const SubnavItem: React.FC<SubnavItemProps> = ({
   );
 };
 
-export { SubnavItem };
+export { SubNavItem };

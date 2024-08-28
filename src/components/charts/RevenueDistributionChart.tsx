@@ -14,7 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { RevenueDistributionData } from "@/data/data";
+import { RevenueDistributionData } from "@/@types";
 
 const chartConfig: {
   subscriptions: {

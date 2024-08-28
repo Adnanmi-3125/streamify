@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Stream } from "../../data/data";
+import { Stream } from "@/@types";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
 
