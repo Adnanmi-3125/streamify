@@ -15,6 +15,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { UserGrowthData } from "@/@types";
+import { format } from "date-fns";
+import { useAnalyticsContext } from "@/context/AnalyticsDataContext";
 
 const chartConfig = {
   desktop: {
@@ -28,13 +30,12 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const UserActivityChar = ({ data }: { data: UserGrowthData[] }) => {
+  const { dateRange } = useAnalyticsContext();
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-xl">User Growth</CardTitle>
-        <CardDescription>
-          Showing total user Growth last 8 months
-        </CardDescription>
+        <CardDescription>Showing total user Growth</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -110,7 +111,9 @@ const UserActivityChar = ({ data }: { data: UserGrowthData[] }) => {
               <TrendingUp className="h-4 w-4" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - August 2024
+              {format(dateRange?.from as Date, "MMMM")} -{" "}
+              {format(dateRange?.to as Date, "MMMM")}{" "}
+              {format(dateRange?.to as Date, "yyyy")}
             </div>
           </div>
         </div>

@@ -66,4 +66,17 @@
   body {
     @apply bg-background text-foreground;
   }
+  .highlight-border {
+    border-color: hsl(var(--highlight)) !important;
+  }
+}
+
+@layer components {
+  .chip-button {
+    @apply border-2 px-2 py-1 rounded-lg bg-transparent flex items-center text-sm;
+    border-color: hsl(var(--chart-1));
+  }
+  .chip-text {
+    @apply flex flex-col;
+  }
 }

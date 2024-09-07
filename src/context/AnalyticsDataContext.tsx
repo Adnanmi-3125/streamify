@@ -4,15 +4,9 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useCallback,
   useMemo,
 } from "react";
-import {
-  Metric,
-  UserGrowthData,
-  RevenueDistributionData,
-  TopSongData,
-  Stream,
-} from "@/@types";
 import {
   fetchMetrics,
   fetchUserGrowth,
@@ -21,6 +15,22 @@ import {
   fetchStreams,
 } from "../utils/apiMocks";
 import { useToast } from "@/components/ui/use-toast";
+import { DateRange } from "react-day-picker";
+import {
+  Metric,
+  UserGrowthData,
+  RevenueDistributionData,
+  TopSongData,
+  Stream,
+} from "@/@types";
+
+import {
+  iconMap,
+  filterByDateRange,
+  getTopFiveSongs,
+  summarizeByCategory,
+  aggregateMetrics,
+} from "@/helpers/helper";
 
 interface AnalyticsDataContextType {
   metrics: Metric[];
@@ -29,83 +39,91 @@ interface AnalyticsDataContextType {
   topSongs: TopSongData[];
   streams: Stream[];
   loading: boolean;
+  setDateRange: (range: DateRange) => void;
+  dateRange?: DateRange;
 }
 
 const AnalyticsDataContext = createContext<
   AnalyticsDataContextType | undefined
 >(undefined);
 
-export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> =
-  React.memo(({ children }) => {
-    const { toast } = useToast();
-    const [metrics, setMetrics] = useState<Metric[]>([]);
-    const [userGrowth, setUserGrowth] = useState<UserGrowthData[]>([]);
-    const [revenueDistribution, setRevenueDistribution] = useState<
-      RevenueDistributionData[]
-    >([]);
-    const [topSongs, setTopSongs] = useState<TopSongData[]>([]);
-    const [streams, setStreams] = useState<Stream[]>([]);
-    const [loading, setLoading] = useState(true);
+const initialState: Omit<AnalyticsDataContextType, "setDateRange"> = {
+  metrics: [],
+  userGrowth: [],
+  revenueDistribution: [],
+  topSongs: [],
+  streams: [],
+  loading: true,
+};
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const [
-            metricsData,
-            userGrowthData,
-            revenueDistributionData,
-            topSongsData,
-            streamsData,
-          ] = await Promise.all([
-            fetchMetrics(),
-            fetchUserGrowth(),
-            fetchRevenueDistribution(),
-            fetchTopSongs(),
-            fetchStreams(),
-          ]);
-
-          setMetrics(metricsData);
-          setUserGrowth(userGrowthData);
-          setRevenueDistribution(revenueDistributionData);
-          setTopSongs(topSongsData);
-          setStreams(streamsData);
-        } catch (error) {
-          toast({
-            variant: "destructive",
-            description: "Failed to fetch data",
-          });
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchData();
-    }, []);
-
-    // useMemo is used in AnalyticsDataProvider to prevent unnecessary re-renders
-    const contextValue = useMemo(
-      () => ({
-        metrics,
-        userGrowth,
-        revenueDistribution,
-        topSongs,
-        streams,
-        loading,
-      }),
-      [metrics, userGrowth, revenueDistribution, topSongs, streams, loading]
-    );
-
-    return (
-      <AnalyticsDataContext.Provider value={contextValue}>
-        {children}
-      </AnalyticsDataContext.Provider>
-    );
+export const AnalyticsDataProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const { toast } = useToast();
+  const [state, setState] = useState(initialState);
+  const [dateRange, setDateRange] = useState<DateRange>({
+    from: new Date("2023-01-01"),
+    to: new Date(),
   });
+
+  const fetchData = useCallback(async () => {
+    try {
+      setState((prev) => ({ ...prev, loading: true }));
+
+      const [
+        metricsData,
+        userGrowthData,
+        revenueDistributionData,
+        topSongsData,
+        streamsData,
+      ] = await Promise.all([
+        fetchMetrics(),
+        fetchUserGrowth(),
+        fetchRevenueDistribution(),
+        fetchTopSongs(),
+        fetchStreams(),
+      ]);
+
+      setState({
+        metrics: aggregateMetrics(
+          filterByDateRange(metricsData, dateRange, "createdAt"),
+          iconMap
+        ),
+        userGrowth: filterByDateRange(userGrowthData, dateRange, "createdAt"),
+        revenueDistribution: summarizeByCategory(
+          filterByDateRange(revenueDistributionData, dateRange, "createdAt")
+        ),
+        topSongs: getTopFiveSongs(
+          filterByDateRange(topSongsData, dateRange, "createdAt")
+        ),
+        streams: filterByDateRange(streamsData, dateRange, "createdAt"),
+        loading: false,
+      });
+    } catch (error) {
+      toast({ variant: "destructive", description: "Failed to fetch data" });
+      setState((prev) => ({ ...prev, loading: false }));
+    }
+  }, [dateRange, toast]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const contextValue = useMemo(
+    () => ({ ...state, dateRange, setDateRange }),
+    [state, dateRange]
+  );
+
+  return (
+    <AnalyticsDataContext.Provider value={contextValue}>
+      {children}
+    </AnalyticsDataContext.Provider>
+  );
+};
 
 export const useAnalyticsContext = () => {
   const context = useContext(AnalyticsDataContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error(
       "useAnalyticsContext must be used within an AnalyticsDataProvider"
     );

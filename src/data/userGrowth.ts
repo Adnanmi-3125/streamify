@@ -1,15 +1,25 @@
 import { UserGrowthData } from "@/@types";
+import { format } from 'date-fns';
 
-  const userGrowth: UserGrowthData[] = [
-    { month: 'Jan', totalUsers: 3000, activeUsers: 1500 },
-    { month: 'Feb', totalUsers: 3500, activeUsers: 1600 },
-    { month: 'Mar', totalUsers: 2900, activeUsers: 1700 },
-    { month: 'Apr', totalUsers: 4500, activeUsers: 1800 },
-    { month: 'May', totalUsers: 5000, activeUsers: 1900 },
-    { month: 'Jun', totalUsers: 5500, activeUsers: 2000 },
-    { month: 'Jul', totalUsers: 5000, activeUsers: 2100 },
-    { month: 'Aug', totalUsers: 6500, activeUsers: 2200 },
-  ];
-  
-  export default userGrowth;
-  
+ 
+const generateDates = (startDate: Date, endDate: Date): string[] => {
+  const dates = [];
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate).toISOString().split('T')[0]);
+    currentDate.setMonth(currentDate.getMonth() + 1); 
+  }
+  return dates;
+};
+
+const dates = generateDates(new Date('2023-01-01'), new Date('2024-09-01'));
+
+const userGrowth: UserGrowthData[] = dates.map((date, index) => ({
+  month: format(new Date(date), 'MMM'),
+  totalUsers: 3000 + (index * 200) % 5000,
+  activeUsers: 1500 + (index * 100) % 2000,
+  createdAt: date,
+}));
+
+
+export default userGrowth;

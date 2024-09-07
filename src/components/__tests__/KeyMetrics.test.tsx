@@ -40,30 +40,35 @@ const mockMetrics = [
     icon: MockIcon,
     value: "Value1",
     description: "Description1",
+    createdAt: "2023-01-01",
   },
   {
     title: "Title 2",
     icon: MockIcon,
     value: "Value2",
     description: "Description2",
+    createdAt: "2023-01-01",
   },
   {
     title: "Title 3",
     icon: MockIcon,
     value: "Value3",
     description: "Description3",
+    createdAt: "2023-01-01",
   },
   {
     title: "Title 4",
     icon: MockIcon,
     value: "Value4",
     description: "Description4",
+    createdAt: "2023-01-01",
   },
   {
     title: "Title 5",
     icon: MockIcon,
     value: "Value5",
     description: "Description5",
+    createdAt: "2023-01-01",
   },
 ];
 

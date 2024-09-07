@@ -15,6 +15,7 @@ describe("MetricCard", () => {
     icon: Calendar,
     amount: "12500",
     description: "+500 since last month",
+    createdAt: "2023-01-01",
   };
 
   it("renders the label correctly", () => {

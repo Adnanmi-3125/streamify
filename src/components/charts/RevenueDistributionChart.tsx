@@ -15,6 +15,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { RevenueDistributionData } from "@/@types";
+import { useAnalyticsContext } from "@/context/AnalyticsDataContext";
+import { format } from "date-fns";
 
 const chartConfig: {
   subscriptions: {
@@ -41,11 +43,12 @@ const RevenueDistributionChart = ({
 }: {
   data: RevenueDistributionData[];
 }) => {
+  const { dateRange } = useAnalyticsContext();
   return (
     <Card className="flex flex-col">
       <CardHeader className=" pb-0">
         <CardTitle className="text-xl">Revenue Distribution</CardTitle>
-        <CardDescription>January - August 2024</CardDescription>
+        <CardDescription>Showing total revenue</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -76,7 +79,9 @@ const RevenueDistributionChart = ({
           Revenue up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total revenue for the last 8 months
+          {format(dateRange?.from as Date, "MMMM")} -{" "}
+          {format(dateRange?.to as Date, "MMMM")}{" "}
+          {format(dateRange?.to as Date, "yyyy")}
         </div>
       </CardFooter>
     </Card>

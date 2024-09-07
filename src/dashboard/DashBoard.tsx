@@ -1,16 +1,27 @@
 import KeyMetrics from "../components/KeyMetrics";
 import Charts from "../components/Charts";
-import { DatePicker } from "../components/ui/date-picker";
 import { SubNav } from "../components/ui/sub-nav";
 import { SubNavItem } from "../components/ui/sub-nav-item";
 import TableIndex from "../components/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/Toggle";
 import { useAnalyticsContext } from "@/context/AnalyticsDataContext";
+import { DateRange } from "react-day-picker";
+import { DateRangePickerWithPresets } from "@/components/DateRangePickerWithPresets";
 
 const DashBoard: React.FC = () => {
-  const { metrics, userGrowth, revenueDistribution, topSongs, loading } =
-    useAnalyticsContext();
+  const {
+    metrics,
+    userGrowth,
+    revenueDistribution,
+    topSongs,
+    loading,
+    setDateRange,
+  } = useAnalyticsContext();
+
+  const handleDateRangeChange = (range: DateRange) => {
+    setDateRange(range);
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -30,8 +41,8 @@ const DashBoard: React.FC = () => {
         <SubNavItem>Reports</SubNavItem>
         <SubNavItem>Notifications</SubNavItem>
       </SubNav>
-      <div className="mt-4 flex items-center pb-6">
-        <DatePicker />
+      <div className="mt-4 flex items-center w-full justify-end  pb-6">
+        <DateRangePickerWithPresets onChange={handleDateRangeChange} />
       </div>
       <KeyMetrics metrics={metrics} loading={loading} />
 

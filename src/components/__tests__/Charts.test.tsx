@@ -17,9 +17,20 @@ jest.mock("../charts/RevenueDistributionChart", () => ({
   default: () => <div>RevenueDistributionChart Mock</div>,
 }));
 
-const mockUserGrowth = [{ month: "Jan", totalUsers: 1000, activeUsers: 500 }];
-const mockRevenueDistribution = [{ name: "Subscriptions", value: 2000 }];
-const mockTopSongs = [{ name: "Song 1", artist: "Artist 1", streams: 1000 }];
+const mockUserGrowth = [
+  { month: "Jan", totalUsers: 1000, activeUsers: 500, createdAt: "2023-01-01" },
+];
+const mockRevenueDistribution = [
+  { name: "Subscriptions", value: 2000, createdAt: "2023-01-01" },
+];
+const mockTopSongs = [
+  {
+    name: "Song 1",
+    artist: "Artist 1",
+    streams: 1000,
+    createdAt: "2023-01-01",
+  },
+];
 
 const skeletonLayout = [
   { width: "w-full", height: "h-6 mb-2" },

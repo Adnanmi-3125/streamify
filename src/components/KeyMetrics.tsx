@@ -8,6 +8,7 @@ type Metric = {
   icon: LucideIcon;
   value: string;
   description: string;
+  createdAt: string;
 };
 
 interface KeyMetricsProps {

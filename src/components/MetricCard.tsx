@@ -6,6 +6,7 @@ export type MetricCardProps = {
   icon: LucideIcon;
   amount: string;
   description: string;
+  createdAt?: string;
 };
 const MetricCard: React.FC<MetricCardProps> = (props) => {
   return (

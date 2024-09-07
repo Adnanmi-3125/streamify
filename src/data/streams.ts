@@ -1,18 +1,80 @@
 import { Stream } from "@/@types";
 
-  
-  const streams: Stream[] = [
-    { id: '1', songName: 'Blinding Lights', artist: 'The Weeknd', dateStreamed: '2023-10-01', streamCount: 500, userId: '101' },
-    { id: '2', songName: 'Save Your Tears', artist: 'The Weeknd', dateStreamed: '2023-10-02', streamCount: 450, userId: '102' },
-    { id: '3', songName: 'Peaches', artist: 'Justin Bieber', dateStreamed: '2023-10-03', streamCount: 400, userId: '103' },
-    { id: '4', songName: 'Leave The Door Open', artist: 'Bruno Mars', dateStreamed: '2023-10-04', streamCount: 350, userId: '104' },
-    { id: '5', songName: 'Levitating', artist: 'Dua Lipa', dateStreamed: '2023-10-05', streamCount: 300, userId: '105' },
-    { id: '6', songName: 'Bad Habits', artist: 'Ed Sheeran', dateStreamed: '2023-10-06', streamCount: 250, userId: '106' },
-    { id: '7', songName: 'Watermelon Sugar', artist: 'Harry Styles', dateStreamed: '2023-10-07', streamCount: 200, userId: '107' },
-    { id: '8', songName: 'Good 4 U', artist: 'Olivia Rodrigo', dateStreamed: '2023-10-08', streamCount: 150, userId: '108' },
-    { id: '9', songName: 'MONTERO (Call Me By Your Name)', artist: 'Lil Nas X', dateStreamed: '2023-10-09', streamCount: 100, userId: '109' },
-    { id: '10', songName: 'Kiss Me More', artist: 'Doja Cat', dateStreamed: '2023-10-10', streamCount: 50, userId: '110' },
-  ];
-  
-  export default streams;
-  
+const songs = [
+  { songName: "Blinding Lights", artist: "The Weeknd" },
+  { songName: "Shape of You", artist: "Ed Sheeran" },
+  { songName: "Bad Guy", artist: "Billie Eilish" },
+  { songName: "Rockstar", artist: "Post Malone" },
+  { songName: "Someone Like You", artist: "Adele" },
+  { songName: "Senorita", artist: "Shawn Mendes & Camila Cabello" },
+  { songName: "Perfect", artist: "Ed Sheeran" },
+  { songName: "Circles", artist: "Post Malone" },
+  { songName: "Dance Monkey", artist: "Tones and I" },
+  { songName: "Havana", artist: "Camila Cabello" },
+  { songName: "Old Town Road", artist: "Lil Nas X" },
+  { songName: "Levitating", artist: "Dua Lipa" },
+  { songName: "Watermelon Sugar", artist: "Harry Styles" },
+  { songName: "Peaches", artist: "Justin Bieber" },
+  { songName: "Good 4 U", artist: "Olivia Rodrigo" },
+  { songName: "Stay", artist: "The Kid LAROI & Justin Bieber" },
+  { songName: "Savage Love", artist: "Jawsh 685 & Jason Derulo" },
+  { songName: "Sunflower", artist: "Post Malone & Swae Lee" },
+  { songName: "Memories", artist: "Maroon 5" },
+  { songName: "Without Me", artist: "Halsey" },
+  { songName: "Lucid Dreams", artist: "Juice WRLD" },
+  { songName: "Thank U, Next", artist: "Ariana Grande" },
+  { songName: "Bad Habits", artist: "Ed Sheeran" },
+  { songName: "Drivers License", artist: "Olivia Rodrigo" },
+  { songName: "Montero (Call Me By Your Name)", artist: "Lil Nas X" },
+  { songName: "Kiss Me More", artist: "Doja Cat ft. SZA" },
+  { songName: "Falling", artist: "Trevor Daniel" },
+  { songName: "Shallow", artist: "Lady Gaga & Bradley Cooper" },
+  { songName: "Sweet But Psycho", artist: "Ava Max" },
+  { songName: "Dance Monkey", artist: "Tones and I" },
+  { songName: "7 Rings", artist: "Ariana Grande" },
+  { songName: "Circles", artist: "Post Malone" },
+  { songName: "Don't Start Now", artist: "Dua Lipa" },
+  { songName: "Señorita", artist: "Shawn Mendes & Camila Cabello" },
+  { songName: "No Tears Left to Cry", artist: "Ariana Grande" },
+  { songName: "In My Feelings", artist: "Drake" },
+  { songName: "I Like It", artist: "Cardi B, Bad Bunny & J Balvin" },
+  { songName: "Thank U, Next", artist: "Ariana Grande" },
+  { songName: "Dynamite", artist: "BTS" },
+  { songName: "Stuck with U", artist: "Ariana Grande & Justin Bieber" },
+  { songName: "Butter", artist: "BTS" },
+  { songName: "Positions", artist: "Ariana Grande" },
+  { songName: "Savage", artist: "Megan Thee Stallion" },
+  { songName: "Rain on Me", artist: "Lady Gaga & Ariana Grande" },
+  { songName: "WAP", artist: "Cardi B ft. Megan Thee Stallion" },
+  { songName: "Go Crazy", artist: "Chris Brown & Young Thug" },
+  { songName: "Say So", artist: "Doja Cat" },
+  { songName: "Intentions", artist: "Justin Bieber ft. Quavo" },
+  { songName: "Life Goes On", artist: "BTS" },
+];
+
+const generateDates = (startDate: Date, endDate: Date): string[] => {
+  const dates = [];
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate).toISOString().split('T')[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+};
+
+const dates = generateDates(new Date('2023-01-01'), new Date('2024-09-07'));
+
+const streams: Stream[] = dates.map((date, index) => {
+  const song = songs[index % songs.length]; 
+  return {
+    id: `${index + 1}`,
+    songName: song.songName,
+    artist: song.artist,
+    dateStreamed: date,
+    streamCount: 100 + (index * 10) % 500,
+    userId: `${100 + index}`,
+    createdAt: date,
+  };
+});
+
+export default streams;
